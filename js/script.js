@@ -1,59 +1,28 @@
 console.log("script.js connected!");
+// Creates dictionary that stores the user's answers
 let userAnswers = {};
 
+// Selects all questions
 let questions = document.querySelectorAll(".question-block");
 questions.forEach(function(question){
-    let buttons = question.querySelectorAll(".answer-btn");
+    // Selects all buttons in those questions
+    let buttons = question.querySelectorAll(".answer-btn")
+
+    // Adds listener for each button that removes 'selected' class from each button and adds 'selected' class to the button that was clicked
     buttons.forEach(function(button){
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function(){
             buttons.forEach(function(btn) {
                 btn.classList.remove("selected");
-            })
+            });
             button.classList.add("selected");
+
+            // Documents the user's answer by question id and answer value
+            let questionid = question.dataset.question;
+            let answer = button.dataset.answer;
+            userAnswers[questionid] = answer;
+        })
     })
-}
-
-// let buttons = document.querySelectorAll("#question-1 button");
-// buttons.forEach(function(button){
-//     button.addEventListener("click", function() {
-//         buttons.forEach(function(btn) {
-//             btn.classList.remove("selected");
-//         })
-//         button.classList.add("selected");
-
-//         let buttonid = "1"
-//         let answer = button.getAttribute("data-answer");
-//         userAnswers[buttonid] = answer;
-//     })
-// })
-
-// let buttons2 = document.querySelectorAll("#question-2 button");
-// buttons2.forEach(function(button){
-//     button.addEventListener("click", function() {
-//         buttons2.forEach(function(btn) {
-//             btn.classList.remove("selected");
-//         })
-//         button.classList.add("selected");
-
-//         let buttonid = "2"
-//         let answer = button.getAttribute("data-answer");
-//         userAnswers[buttonid] = answer;
-//     })
-// })
-
-// let buttons3 = document.querySelectorAll("#question-3 button");
-// buttons3.forEach(function(button){
-//     button.addEventListener("click", function() {
-//         buttons3.forEach(function(btn) {
-//             btn.classList.remove("selected");
-//         })
-//         button.classList.add("selected");
-
-//         let buttonid = "3"
-//         let answer = button.getAttribute("data-answer");
-//         userAnswers[buttonid] = answer;
-//     })
-// })
+})
 
 function displayResult() {
     // + symbol turns dict value into an integer so it can be properly summed
@@ -76,7 +45,6 @@ function displayResult() {
     // Displays the hidden result container
     let container = document.getElementById("result-container")
     container.style.display = 'flex';
-    console.log("text");
 }
 
 let results = document.getElementById("show-result");
