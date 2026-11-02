@@ -1,5 +1,5 @@
 console.log("script.js connected!");
-// Creates dictionary that stores the user's answers
+// Creates object that stores the user's answers
 let userAnswers = {};
 
 // Selects all questions
@@ -16,20 +16,31 @@ questions.forEach(function(question){
             });
             button.classList.add("selected");
 
-            // Documents the user's answer by question id and answer value
             let questionid = question.dataset.question;
             let answer = button.dataset.answer;
+            // Point system for different answers
+            if (answer === "A") {
+                answer = 5;
+            } else if (answer === "B") {
+                answer = 27;
+            } else if (answer === "C") {
+                answer = 53;
+            } else if (answer === "D") {
+                answer = 121;
+            }
+            // Documents the user's answer by question id and answer value
             userAnswers[questionid] = answer;
         })
     })
 })
 
+// Function that displays the user's result which is based on the sum of their answer values
 function displayResult() {
-    // + symbol turns dict value into an integer so it can be properly summed
-    let sum = +userAnswers[1] + +userAnswers[2] + +userAnswers[3];
+    // Sums the user's answer values
+    let sum = userAnswers[1] + userAnswers[2] + userAnswers[3];
     let output = document.getElementById("result-text");
 
-    // If else statement deciding the result based on the users recorded answers
+    // If else statement deciding the result based on the user's recorded answers
     if (sum === 15 || sum === 37 || sum === 63 || sum === 131) {
         output.textContent = `You are Peter Parker!`;
     } else if (sum === 59 || sum === 81 || sum === 107 || sum === 175) {
@@ -41,12 +52,12 @@ function displayResult() {
     } else {
         output.textContent = `You are Hobie Brown!`
     }
-
     // Displays the hidden result container
     let container = document.getElementById("result-container")
     container.style.display = 'flex';
 }
 
+// Displays result when "Show Results" button is clicked
 let results = document.getElementById("show-result");
 results.addEventListener("click", function() {
         displayResult();
